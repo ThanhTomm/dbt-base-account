@@ -3,6 +3,11 @@
 WITH clean_workflow as (
     SELECT *
         FROM {{ ref("workflow") }}
+),
+
+clean_user as (
+    SELECT *
+        FROM {{ ref("user") }}
 )
 
 SELECT 
@@ -13,3 +18,4 @@ SELECT
     , s.last_update
     FROM `base-datateam.dataset_test.stage` as s
     JOIN clean_workflow as w on s.workflow_id = w.id
+    JOIN clean_user as u on s.user_id = u.user_id
